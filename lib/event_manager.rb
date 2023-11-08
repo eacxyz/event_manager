@@ -57,6 +57,7 @@ template_letter = File.read('form_letter.erb')
 erb_template = ERB.new template_letter
 
 times = Hash.new(0)
+days = Hash.new(0)
 
 contents.each do |row|
   id = row[0]
@@ -65,6 +66,7 @@ contents.each do |row|
   phone = clean_phone(row[:homephone])
   time = row[:regdate]
   times[Time.strptime(time, '%m/%d/%Y %k:%M').hour] += 1
+  days[Date.strptime(time, '%m/%d/%Y %k:%M').wday] += 1
   legislators = legislators_by_zipcode(zipcode)
 
   form_letter = erb_template.result(binding)
@@ -74,3 +76,4 @@ contents.each do |row|
 end
 
 puts "Registrations per hour: #{times}"
+puts "Registrations per weekday: #{days}"
