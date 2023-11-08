@@ -76,4 +76,4 @@ contents.each do |row|
 end
 
 puts "Registrations per hour: #{times}"
-puts "Registrations per weekday: #{days}"
+puts "Registrations per weekday (0-6, Sunday is zero): #{days}"
